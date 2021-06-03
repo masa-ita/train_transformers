@@ -113,9 +113,9 @@ def train_bert():
     return accuracy, data, pred, target
 
 # Start training processes
-def _mp_fn(rank, flags):
+def _mp_fn(rank, args):
     global FLAGS
-    FLAGS = flags
+    FLAGS = args
     torch.set_default_tensor_type('torch.FloatTensor')
     accuracy, data, pred, target = train_bert()
 
