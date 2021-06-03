@@ -120,7 +120,6 @@ def _mp_fn(rank, flags):
     accuracy, data, pred, target = train_bert()
 
 def main():
-    freeze_support()
     xmp.spawn(_mp_fn, args=(FLAGS,), nprocs=args.num_cores,
             start_method='fork')
 
