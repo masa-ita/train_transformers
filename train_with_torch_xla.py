@@ -29,7 +29,7 @@ parser.add_argument("--mount_point", type=str, help="gcs mount point", default="
 parser.add_argument("--vocab_size", type=int, help="tokenizer's vocab size", default=32000)
 parser.add_argument("--mlm_probability", type=str, help="Masked Language Model's mask probability", default=0.15)
 parser.add_argument("--batch_size", type=int, help="batch size", default=4)
-parser.add_argument("num_workers", type=int, help="number of workers in data preprocessing", default=4)
+parser.add_argument("--num_workers", type=int, help="number of workers in data preprocessing", default=4)
 parser.add_argument("--lr", type=str, help="learning rate", default="0.001")
 parser.add_argument("--momentum", type=str, help="optimizer's momentum", default="0.5")
 parser.add_argument("--num_cores", type=int, help="number of tpu cores", default=8)
