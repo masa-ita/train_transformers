@@ -20,4 +20,4 @@ do
 done
 
 mkdir $MOUNT_POINT
-gcsfuse --implicit_dir $BUCKET_NAME $MOUNT_POINT
+gcsfuse --implicit-dirs $BUCKET_NAME $MOUNT_POINT
