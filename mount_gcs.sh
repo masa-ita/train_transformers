@@ -19,5 +19,5 @@ do
     esac
 done
 
-mkdirs -p $MOUNT_POINT
+mkdir -p $MOUNT_POINT
 gcsfuse --implicit-dirs $BUCKET_NAME $MOUNT_POINT
