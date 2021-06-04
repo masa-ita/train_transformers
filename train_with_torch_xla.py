@@ -22,10 +22,7 @@ from transformers import (
 from datasets import Dataset
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--project_id", type=str, help="GCP project id")
-parser.add_argument("--bucket_name", type=str, help="GCS bucket name")
 parser.add_argument("--data_dir", type=str, help="data dir in the gcs bucket")
-parser.add_argument("--mount_point", type=str, help="gcs mount point", default="./gcs")
 parser.add_argument("--vocab_size", type=int, help="tokenizer's vocab size", default=32000)
 parser.add_argument("--mlm_probability", type=str, help="Masked Language Model's mask probability", default=0.15)
 parser.add_argument("--batch_size", type=int, help="batch size", default=4)
@@ -40,7 +37,7 @@ args = parser.parse_args()
 
 SERIAL_EXEC = xmp.MpSerialExecutor()
 
-DATASET_PATH = os.path.join(args.mount_point, args.data_dir)
+DATASET_PATH = args.data_dir
 
 TOKENIZER = BertJapaneseTokenizer.from_pretrained('cl-tohoku/bert-base-japanese-v2')
 
