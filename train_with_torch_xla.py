@@ -23,6 +23,7 @@ from datasets import Dataset
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--data_dir", type=str, help="data dir in the gcs bucket")
+parser.add_argument("--train_samples", type=int, help="number of train samples")
 parser.add_argument("--vocab_size", type=int, help="tokenizer's vocab size", default=32000)
 parser.add_argument("--mlm_probability", type=str, help="Masked Language Model's mask probability", default=0.15)
 parser.add_argument("--batch_size", type=int, help="batch size", default=4)
@@ -52,6 +53,8 @@ def train_bert():
   
     def get_dataset():
         dataset = Dataset.load_from_disk(DATASET_PATH)
+        if args.train_samples and args.train_samples < len(dataset):
+            dataset = torch.utils.data.Subset(dataset, np.random.choice(args.train_samples, replace=False))
         return dataset
 
   
