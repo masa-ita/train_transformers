@@ -7,3 +7,6 @@ sudo apt install gcsfuse -y
 
 # install python libs
 pip install transformers datasets fugashi unidic-lite cloud-tpu-client
+
+# set shared memory high
+sudo umount /dev/shm/ && sudo mount -t tmpfs -o rw,nosuid,nodev,noexec,relatime,size=90G shm /dev/shm
