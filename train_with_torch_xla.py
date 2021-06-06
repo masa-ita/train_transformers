@@ -69,7 +69,8 @@ def train_bert():
         shuffle=True)
     
     data_collator = DataCollatorForLanguageModeling(tokenizer=TOKENIZER,
-                                                    mlm_probability=float(args.mlm_probability))
+                                                    mlm_probability=float(args.mlm_probability),
+                                                    pad_to_multiple_of=512)
     
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
