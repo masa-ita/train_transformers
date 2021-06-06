@@ -80,7 +80,7 @@ def train_bert():
         drop_last=True)
 
     # Scale learning rate to world size
-    lr = args.learning_rate * xm.xrt_world_size()
+    lr = args.lr * xm.xrt_world_size()
 
     # Get loss function, optimizer, and model
     device = xm.xla_device()
