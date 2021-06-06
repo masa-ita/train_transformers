@@ -69,7 +69,7 @@ def train_bert():
         shuffle=True)
     
     data_collator = DataCollatorForLanguageModeling(tokenizer=TOKENIZER,
-                                                    mlm_probability=args.mlm_probability)
+                                                    mlm_probability=float(args.mlm_probability))
     
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
@@ -80,12 +80,12 @@ def train_bert():
         drop_last=True)
 
     # Scale learning rate to world size
-    lr = args.lr * xm.xrt_world_size()
+    lr = float(args.lr) * xm.xrt_world_size()
 
     # Get loss function, optimizer, and model
     device = xm.xla_device()
     model = WRAPPED_MODEL.to(device)
-    optimizer = optim.SGD(model.parameters(), lr=lr, momentum=args.momentum)
+    optimizer = optim.SGD(model.parameters(), lr=lr, momentum=float(args.momentum))
 
     def train_loop_fn(loader):
         tracker = xm.RateTracker()
