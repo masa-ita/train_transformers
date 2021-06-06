@@ -121,7 +121,7 @@ def _mp_fn(rank, args):
 
 def main():
     xmp.spawn(_mp_fn, args=(args,), nprocs=args.num_cores,
-            start_method='fork')
+            start_method='spawn')
 
 if __name__ ==  '__main__':
     main()
