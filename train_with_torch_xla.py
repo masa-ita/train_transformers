@@ -91,7 +91,7 @@ def train_bert():
     def train_loop_fn(loader):
         tracker = xm.RateTracker()
         model.train()
-        for x, (data, target) in enumerate(loader):
+        for x, data in enumerate(loader):
             optimizer.zero_grad()
             output = model(data)
             loss = output.loss
@@ -104,21 +104,20 @@ def train_bert():
                     tracker.global_rate(), time.asctime()), flush=True)
 
     # Train loops
-    accuracy = 0.0
-    data, pred, target = None, None, None
+    data, pred = None, None
     for epoch in range(1, args.num_epochs + 1):
         para_loader = pl.ParallelLoader(train_loader, [device])
         train_loop_fn(para_loader.per_device_loader(device))
         xm.master_print("Finished training epoch {}".format(epoch))
 
-    return accuracy, data, pred, target
+    return data, pred
 
 # Start training processes
 def _mp_fn(rank, args):
     global FLAGS
     FLAGS = args
     torch.set_default_tensor_type('torch.FloatTensor')
-    accuracy, data, pred, target = train_bert()
+    data, pred = train_bert()
 
 def main():
     xmp.spawn(_mp_fn, args=(args,), nprocs=args.num_cores,
