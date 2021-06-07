@@ -93,7 +93,7 @@ def train_bert():
         model.train()
         for x, data in enumerate(loader):
             optimizer.zero_grad()
-            output = model(data)
+            output = model(**data)
             loss = output.loss
             loss.backward()
             xm.optimizer_step(optimizer)
